@@ -1,5 +1,5 @@
 {
-  "name": "digitalfarm",
+  "name": "digitalfarm-dev",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -25,7 +25,6 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    // "heroku-postbuild": "ng build --prod",   
     "postinstall": "ng build --aot --prod"
   },
   "private": true,
