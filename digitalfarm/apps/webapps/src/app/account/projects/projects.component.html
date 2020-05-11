@@ -1,0 +1,195 @@
+<div class="row ">
+  <div class="col-12">
+
+    <div class="page-title-box mt-3 mb-5">
+      <p class="h2">Projet: {{projectsdetail.name}}</p>
+    </div>
+
+  </div>
+</div>
+
+<!--------Detail project--------->
+
+<div class="row mb-5">
+  <div class="col-xl-12 col-md-12 col-lg-12 order-lg-2 order-xl-1">
+
+    <div class="card">
+      <div class="card-body pb-1">
+        <div class="media">
+          <div class="media-body">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="m-2">LISTE DES COMPOSANTES DU PROJET: {{projectsdetail.name}}</h5>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary mr-1">Editer le projet</button>
+                <button type="button" class="btn btn-outline-danger">Supprimer le projet</button>
+              </div>
+            </div>
+
+          </div> <!-- end media body-->
+        </div> <!-- end media -->
+
+        <hr class="m-0">
+
+        <div class="my-3">
+          <div class="row">
+
+            <div class="col-lg-12   col-xl-12">
+              <div class="card text-center" >
+                <div class="card-body">
+                  <img src="assets/images/users/avatar-1.png" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+
+                  <h4 class="mb-2 mt-2">Utilisateur: {{projectsdetail.owner}}</h4>
+                  <p class="text-muted font-14">ID: {{projectsdetail.id}}</p>
+
+
+
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+
+            </div>
+
+
+            <!--------Liste of devices content-------->
+            <div class="col-md-12 " *ngFor="let device of projectsdetail.devices">
+              <div class="card" >
+                <div class="card-header cusor-pointer" (click)="navigatedeviceDetail(device.id)">
+                  <p class="h3 text-center mb-3">
+                    <img src="assets/images/img-component/devices.png" class="" style="width: 28px;"  alt="get ways">
+
+                    Devices: {{device.name}}
+                  </p>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+
+
+                    <div class="col-lg-6 col-xl-6" *ngFor="let sensor of device.sensors">
+                      <div class="card " >
+                        <div class="card-body">
+                          <div class="row align-items-center">
+
+                            <div class="col-6">
+                              <h5 class="text-muted font-weight-normal mt-0 text-truncate" title="{{sensor.name}}({{sensor.id}})">{{sensor.name}}({{sensor.id}})</h5>
+                              <h3 class="my-2 py-1"> {{sensor.value?.value}}</h3>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="text-right" >
+                                <img *ngIf="sensor.quantity_kind=='SoilHumidity'" src="assets/images/img-component/humidity.png" style="width: 100px;"  alt="get ways">
+                                <img *ngIf="sensor.quantity_kind=='AirTemperature'" src="assets/images/img-component/temperature.png" style="width: 100px;"  alt="get ways">
+                                <img *ngIf="sensor.name=='DEBIT'" src="assets/images/img-component/sm.png" style="width: 100px;"  alt="get ways">
+                                <img *ngIf="sensor.quantity_kind!='AirTemperature' || sensor.quantity_kind=='SoilHumidity'" src="assets/images/img-component/sm.png" style="width: 100px;"  alt="get ways">
+
+                              </div>
+                            </div>
+                          </div> <!-- end row-->
+                        </div> <!-- end card-body -->
+                      </div> <!-- end card -->
+                    </div> <!-- end col -->
+
+
+
+                    <div class="col-lg-6 col-xl-6" *ngFor="let actuator of device.actuators">
+                      <div class="card ">
+                        <div class="card-body">
+                          <div class="row align-items-center">
+
+                            <div class="col-6">
+                              <h5 class="text-muted font-weight-normal mt-0 text-truncate" title="New Leads">{{actuator.name}}</h5>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="text-right" >
+                                <img src="assets/images/img-component/electrovane.png" alt="devices" style="width: 100px;">
+                              </div>
+                            </div>
+                          </div> <!-- end row-->
+                        </div> <!-- end card-body -->
+                      </div> <!-- end card -->
+                    </div> <!-- end col -->
+
+                  </div>
+                </div>
+            </div>
+
+          </div>
+
+          <!---------List of gateways---------->
+
+            <div class="col-md-12 " *ngIf="projectsdetail.gateways">
+              <div class="card" >
+                <div class="card-header">
+                  <p class="h3 text-center mb-3">Gateways</p>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+
+
+                    <div class="col-lg-6 col-xl-6" *ngFor="let gateway of projectsdetail.gateways">
+                      <div class="card cusor-pointer" (click)="navigategatewayDetail(gateway.id)">
+                        <div class="card-body ">
+                          <div class="row align-items-center">
+
+                            <div class="col-12">
+                              <div class="text-center mb-3" >
+                                <img src="assets/images/img-component/getways.png" alt="devices" style="width: 100px;">
+                              </div>
+                            </div>
+
+                            <div class="col-12">
+                              <h4 class="font-weight-bold" title="New Leads">Gateways: {{gateway.name}}</h4>
+
+                              <h5 class="my-2 py-1">Etat:
+                                <span *ngIf="gateway.connected" class="badge badge-success">connecté</span>
+                                <span *ngIf="!gateway.connected" class="badge badge-danger">deconnecté</span>
+                              </h5>
+                              <p>
+                                <span class="text-nowrap">Date de creation: {{gateway.date_created | date: 'd/M/y'}}</span>
+                              </p>
+                            </div>
+
+
+
+                          </div> <!-- end row-->
+                        </div> <!-- end card-body -->
+                      </div> <!-- end card -->
+                    </div> <!-- end col -->
+
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+        </div>
+
+      </div> <!-- end card-body -->
+    </div> <!-- end card -->
+    <!-- end news feeds -->
+
+
+  </div>
+</div>
+</div>
+
+
+<!-----End detail project-------->
+
+<!-------maps-------->
+<div class="row">
+  <div class="col-md-12 col-xl-12">
+    <div class="card" >
+      <div class="card-body">
+        <h4 class="header-title mb-3">Localisation des devices</h4>
+        <div id="all_devices_map" class="gmaps-inov"></div>
+        </div>
+
+      </div> <!-- end card-body  gmaps-basic-->
+    </div> <!-- end card-->
+  </div> <!-- end col-->
+<!-------end map--------->

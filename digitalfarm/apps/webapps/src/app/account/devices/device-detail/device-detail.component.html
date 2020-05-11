@@ -1,0 +1,338 @@
+<div class="row " *ngIf="!loadingdevice">
+  <div class="col-12">
+
+    <div class="page-title-box mt-3 mb-5">
+      <p class="h2">Detail de la device: {{device_data.name}} </p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-----Placehloder animation-------->
+<div class="row" *ngIf="loadingdevice">
+  <div class="col-12">
+
+    <div class="placeload">
+      <div class="header">
+        <div class="header-content">
+          <div class="content-shape loads"></div>
+          <div class="content-shape loads"></div>
+        </div>
+      </div>
+      <div class="image-placeholder loads"></div>
+    </div>
+  </div>
+
+</div>
+<!-------End Placeholder animation------>
+
+<!--------Detail device--------->
+
+<div class="row mb-5" *ngIf="!loadingdevice">
+  <div class="col-xl-12 col-md-12 col-lg-12 order-lg-2 order-xl-1">
+
+    <div class="card">
+      <div class="card-body pb-1">
+        <div class="media">
+          <div class="media-body">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="m-2">LISTE DES CAPTEURS ET ACTIONNEURS</h5>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary mr-1"
+                        (click)="updatedeviceModal(device_data.id, updatetemplate)">Editer la device</button>
+                <button type="button" class="btn btn-outline-danger">Supprimer la device</button>
+              </div>
+            </div>
+
+          </div> <!-- end media body-->
+        </div> <!-- end media -->
+
+        <hr class="m-0">
+
+        <div class="my-3">
+          <div class="row">
+
+            <div class="col-lg-12  col-md-12  col-xl-12">
+              <div class="card text-center cusor-pointer" >
+                <div class="card-body">
+                  <img src="assets/images/users/avatar-1.png" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+
+                  <h4 class="mb-2 mt-2">Utilisateur: {{device_data.owner}}</h4>
+                  <p class="text-muted font-14">ID: {{device_data.id}}</p>
+                  <p class="text-muted font-14">Visibility: {{device_data?.visibility}}</p>
+
+
+
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+
+            </div>
+
+
+
+            <div class="col-lg-6 col-xl-6" *ngFor="let sensor of device_data.sensors">
+              <div class="card " >
+
+                <div class="card-header border-bottom-0">
+                  <button type="button" class="btn btn-outline-primary btn-rounded mr-1">Editer</button>
+                  <button type="button" class="btn btn-outline-danger btn-rounded">Supprimer</button>
+                </div>
+
+                <div class="card-body">
+                  <div class="row align-items-center cusor-pointer" (click)="navigatesensorDetail(sensor.id)">
+
+                    <div class="col-6">
+                      <h4 class=" font-weight-normal mt-0 text-truncate" title="New Leads">{{sensor.name}} ({{sensor.id}})</h4>
+                      <h3 class="my-2 py-1">
+
+                        <span *ngIf="sensor.value">{{sensor.value.value}}</span>
+                        <span *ngIf="sensor.unit=='Percent'">%</span>
+                        <span *ngIf="sensor.unit=='DegreeCelsius'">°C</span>
+
+                      </h3>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="text-right" >
+                        <img *ngIf="sensor.quantity_kind=='SoilHumidity'" src="assets/images/img-component/humidity.png" style="width: 100px;"  alt="get ways">
+                        <img *ngIf="sensor.quantity_kind=='AirTemperature'" src="assets/images/img-component/temperature.png" style="width: 100px;" alt="get ways">
+                        <img *ngIf="sensor.quantity_kind!='AirTemperature' && sensor.quantity_kind!='SoilHumidity'" src="assets/images/img-component/sm.png" style="width: 100px;" alt="get ways">
+                      </div>
+                    </div>
+                  </div> <!-- end row-->
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+            </div> <!-- end col -->
+
+
+            <div class="col-lg-6 col-xl-6" *ngFor="let actuator of device_data.actuators">
+              <div class="card cusor-pointer">
+                <div class="card-header border-bottom-0">
+                  <button type="button" class="btn btn-outline-primary btn-rounded mr-1">Editer</button>
+                  <button type="button" class="btn btn-outline-danger btn-rounded">Supprimer</button>
+                </div>
+                <div class="card-body">
+                  <div class="row align-items-center cusor-pointer" (click)="navigateactuatorDetail(actuator.id)">
+
+                    <div class="col-6">
+                      <h4 class=" font-weight-normal mt-0 text-truncate" title="New Leads">{{actuator.name}}</h4>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="text-right" >
+                        <img src="assets/images/img-component/electrovane.png" alt="devices" style="width: 100px;">
+                      </div>
+                    </div>
+                  </div> <!-- end row-->
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+            </div> <!-- end col -->
+
+
+
+
+
+          </div>
+
+        </div> <!-- end card-body -->
+      </div> <!-- end card -->
+      <!-- end news feeds -->
+
+
+    </div>
+
+    <!----------Modal to edit---------->
+    <ng-template #updatetemplate>
+
+      <div class="modal-content">
+
+        <form action="">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button"  (click)="modalUpdate.hide()" class="close"  aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="example-readonly">ID</label>
+                <input type="text" id="example-readonly" class="form-control" readonly="" value="Readonly value">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="example-email">Nom</label>
+                <input type="Text" id="example-email" name="example-email" class="form-control" placeholder="Nom">
+              </div>
+
+              <div class="form-group col-md-12">
+                <label for="example-select">Device</label>
+                <select class="form-control" id="example-selectd">
+                    <option value="Accelerometer">Accelerometer<option>
+                   <option value="AirHumidityDevice">Air humidity device<option>
+                   <option value="AirPollutantDevice">Air pollutant device<option>
+                   <option value="AirThermometer">Air thermometer<option>
+                   <option value="AlcoholLevelDevice">Alcohol level device<option>
+                   <option value="AtmosphericPressureDevice">Atmospheric pressure device<option>
+                   <option value="BloodPressureDevice">Blood pressure device<option>
+                   <option value="BoardThermometer">Board thermometer<option>
+                   <option value="BoardVoltageDevice">Board voltage device<option>
+                   <option value="BodyThermometer">Body thermometer<option>
+                   <option  value="CholesterolDevice">Cholesterol device<option>
+                   <option value="Clock">Clock<option>
+                   <option value="CloudCoverDevice">Cloud cover device<option>
+                   <option value="CO2Device">CO2 device<option>
+                   <option value="ConductivityDevice">Conductivity device<option>
+                   <option value="CODevice">CO device<option>
+                   <option value="Counter">Counter<option>
+                   <option value="CurrentDevice">Current device<option>
+                   <option value="DeltaDewPointDevice">Delta dew point device<option>
+                   <option value="DeviceUptimeClock">Device uptime clock<option>
+                   <option value="DewPointDevice">Dew point device<option>
+                   <option value="DirectionOfArrivalDevice">Direction of arrival device<option>
+                   <option value="DistanceNextVehicleDevice">Distance next vehicle device<option>
+                   <option value="DistanceDevice">Distance device<option>
+                   <option value="DoorStateDevice">Door state device<option>
+                   <option value="DustDevice">Dust device<option>
+                   <option value="ElectricalDevice">Electrical device<option>
+                   <option value="ElectricFieldDevice">Electric field device<option>
+                   <option value="EnergyMeter">Energy meter<option>
+                   <option value="FallDetector">Fall detector<option>
+                   <option value="FrequencyDevice">Frequency device<option>
+                   <option value="FuelLevel">Fuel level<option>
+                   <option value="FuelConsumptionDevice">Fuel consumption device<option>
+                   <option value="GasDetector">Gas detector<option>
+                   <option value="GaseousPollutantDevice">Gaseous pollutant device<option>
+                   <option value="Glucometer">Glucometer<option>
+                   <option value="GPSDevice">GPS device<option>
+                   <option value="GyroscopeDevice">Gyroscope device<option>
+                   <option value="HeartBeatDevice">Heart beat device<option>
+                   <option value="HumanPresenceDetector">Human presence detector<option>
+                   <option value="HumidityDevice">Humidity device<option>
+                   <option value="Hydrophone">Hydrophone<option>
+                   <option value="ImageDevice">Image device<option>
+                   <option value="LeafWetnessDevice">Leaf wetness device<option>
+                   <option value="LightDevice">Light device<option>
+                   <option value="LoRaInterfaceEnergyMeter">LoRa interface energy meter<option>
+                   <option value="Magnetometer">Magnetometer<option>
+                   <option value="MotionDevice">Motion device<option>
+                   <option value="NH3Device">NH3 device<option>
+                   <option value="NO2Device">NO2 device<option>
+                   <option value="NODevice">NO device<option>
+                   <option value="O3Device">O3 device<option>
+                   <option value="Odometer">Odometer<option>
+                   <option value="OpticalDustDevice">Optical dust device<option>
+                   <option value="OxidationReductionPotentialDevice">Oxidation reduction potential device<option>
+                   <option value="OxygenDevice">Oxygen device<option>
+                   <option value="OtherDevice">Other device<option>
+                   <option value="Pedometer">Pedometer<option>
+                   <option value="PeopleCountDevice">People count device<option>
+                   <option value="PHDevice">PH device<option>
+                   <option value="PrecipitationDevice">Precipitation device<option>
+                   <option value="PresenceDetector">Presence detector<option>
+                   <option value="PressureDevice">Pressure device<option>
+                   <option value="ProximityDevice">Proximity device<option>
+                   <option value="PulseOxymeter">Pulse oxymeter<option>
+                   <option value="RadiationParticleDetector">Radiation particle detector<option>
+                   <option value="RainFallDevice">Rain fall device<option>
+                   <option value="RoadSurfaceThermometer">Road surface thermometer<option>
+                   <option value="SaltMeter">Salt meter<option>
+                   <option value="Seismometer">Seismometer<option>
+                   <option value="SkinConductanceDevice">Skin conductance device<option>
+                   <option value="SmokeDetector">Smoke detector<option>
+                   <option value="SO2Device">SO2 device<option>
+                   <option value="SoilHumidityDevice">Soil humidity device<option>
+                   <option value="SoilThermometer">Soil thermometer<option>
+                   <option value="SolarRadiationDevice">Solar radiation device<option>
+                   <option value="SoundDevice">Sound device<option>
+                   <option value="SpeedDevice">Speed device<option>
+                   <option value="SunPositionDirectionDevice">Sun position direction device<option>
+                   <option value="SunPositionElevationDevice">Sun position elevation device<option>
+                   <option value="Thermometer">Thermometer<option>
+                   <option value="TimeOfArrivalNextVehicleDevice">Time of arrival next vehicle device<option>
+                   <option value="TimeOfArrivalDevice">Time of arrival device<option>
+                   <option value="TouchDevice">Touch device<option>
+                   <option value="UltrasonicDevice">Ultrasonic device<option>
+                   <option value="VehicleCountDevice">Vehicle count device<option>
+                   <option value="VehiclePresenceDetector">Vehicle presence detector<option>
+                   <option value="VisibilityDevice">Visibility device<option>
+                   <option value="VOCDevice">VOC device<option>
+                   <option value="VoiceCommandDevice">Voice command device<option>
+                   <option value="VoltageDevice">Voltage device<option>
+                   <option value="WasteLevelDevice">Waste level device<option>
+                   <option value="WaterLevel">Water level device<option>
+                   <option value="WaterConductivityDevice">Water conductivity device<option>
+                   <option value="WaterNH4IonDevice">Water NH4 ion device<option>
+                   <option value="WaterNO3IonDevice">Water NO3 ion device<option>
+                   <option value="WaterO2IonDevice">Water O2 ion device<option>
+                   <option value="WaterPHDevice">Water PH device<option>
+                   <option value="WaterPollutantDevice">Water pollutant device<option>
+                   <option value="WaterThermometer">Water thermometer<option>
+                   <option value="WeightDevice">Weight device<option>
+                   <option value="WiFiInterfaceEnergyMeter">WiFi interface energy meter<option>
+                   <option value="WindChillDevice">Wind chill device<option>
+                   <option value="WindDirectionDevice">Wind direction device<option>
+                   <option value="WindSpeedDevice">Wind speed device<option>
+
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="example-select">Type</label>
+                <select class="form-control" id="example-select">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="example-select">Unité</label>
+                <select class="form-control" id="sexample-select">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" (click)="modalUpdate.hide()" >Annuler</button>
+            <button type="button" class="btn btn-outline-success" (click)="updateDevice()">Modifier</button>
+          </div>
+        </form>
+
+      </div>
+
+
+    </ng-template>
+    <!----------End to modal----------->
+
+  </div>
+</div>
+
+
+<!-----End detail device-------->
+
+
+<!-------maps-------->
+<div class="row" *ngIf="!loadingdevice">
+  <div class="col-md-12 col-xl-12">
+    <div class="card" >
+      <div class="card-body">
+        <h4 class="header-title mb-3">Localisation de la device: {{device_data.name}}</h4>
+        <div id="map" class="gmaps" style="position: relative;overflow: hidden;"></div>
+      </div> <!-- end card-body-->
+    </div> <!-- end card-->
+  </div> <!-- end col-->
+</div>
+<!-------end map--------->
+

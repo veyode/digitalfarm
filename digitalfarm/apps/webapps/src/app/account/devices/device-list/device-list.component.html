@@ -1,0 +1,180 @@
+<div class="row " *ngIf="!loadingdevice">
+  <div class="col-12">
+
+    <div class="page-title-box mt-3 mb-5">
+      <p class="h2">Liste de nos devices</p>
+    </div>
+
+  </div>
+</div>
+
+<!-----Placehloder animation-------->
+<div class="row" *ngIf="loadingdevice">
+  <div class="col-12">
+
+    <div class="placeload">
+      <div class="header">
+        <div class="header-content">
+          <div class="content-shape loads"></div>
+          <div class="content-shape loads"></div>
+        </div>
+      </div>
+      <div class="image-placeholder loads"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-------End Placeholder animation------>
+
+
+
+<!-------Device liste-------->
+
+<div class="row" *ngIf="!loadingdevice">
+  <div class="col-xl-12 col-lg-12 order-lg-2 order-xl-1" *ngFor="let data of datas">
+    <div class="card">
+      <div class="card-body">
+        <div class="float-right mb-3">
+          <button class="btn btn-sm pd-x-15 btn-success  mr-1" (click)="voirDevicedetail(data.id)"> Voir detail </button>
+<!--          <button class="btn btn-sm pd-x-15 btn-warning mr-1"> Editer la divice </button>
+          <button class="btn btn-sm pd-x-15 btn-danger "> Supprimer </button>-->
+        </div>
+        <h4 class="header-title mt-2">{{data.name}}</h4>
+        <p>Date de creation {{data.date_created|date: 'd/M/y'}}</p>
+
+        <div class="card col-lg-12 col-md-12">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <p class="h5">Liste des capteurs</p>
+              </div>
+            </div>
+
+
+            <div class="table-responsive ">
+
+              <table class="table table-centered table-nowrap table-hover mb-0 " >
+
+                <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col" class="font-weight-bold">ID</th>
+                  <th scope="col" class="font-weight-bold">Nom</th>
+                  <th scope="col" class="font-weight-bold">Type</th>
+                  <th scope="col" class="font-weight-bold">Unité</th>
+                  <th scope="col" class="font-weight-bold">Valeur</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let sensor of data.sensors">
+                  <td>
+                    <img *ngIf="sensor.quantity_kind=='SoilHumidity'" src="assets/images/img-component/humidity.png" style="width: 50px;"  alt="get ways">
+                    <img *ngIf="sensor.quantity_kind=='AirTemperature'" src="assets/images/img-component/temperature.png" style="width: 50px;" alt="get ways">
+                    <img *ngIf="sensor.quantity_kind!=='AirTemperature' && sensor.quantity_kind!=='SoilHumidity'" src="assets/images/img-component/sm.png" style="width: 50px;" alt="get ways">
+                  </td>
+                  <td>
+                    <h5 class="font-14 my-1 font-weight-normal">
+                      {{sensor.id}}
+                    </h5>
+                  </td>
+                  <td>
+                    <h5 class="font-14 my-1 font-weight-normal">
+                      {{sensor.name}}({{sensor.id}})
+                    </h5>
+                  </td>
+                  <td>
+                    <h5 class="font-14 my-1 font-weight-normal">
+                      {{sensor.sensor_kind}}
+                    </h5>
+                  </td>
+                  <td>
+                    <h5 class="font-14 my-1 font-weight-normal">
+                      {{sensor.unit}}
+                    </h5>
+                  </td>
+                  <td>
+                    <h5 class="font-14 my-1 font-weight-normal">
+                      {{sensor.value.value}}
+                    </h5>
+                  </td>
+
+                </tr>
+
+                </tbody>
+              </table>
+            </div> <!-- end table-responsive-->
+
+          </div>
+        </div>
+
+
+
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <p class="h5">Liste des actionneurs</p>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+
+              <table class="table table-centered table-nowrap table-hover mb-0 " >
+
+                <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col" class="font-weight-bold">ID</th>
+                  <th scope="col" class="font-weight-bold">Nom</th>
+                  <th scope="col" class="font-weight-bold">Type</th>
+                  <th scope="col" class="font-weight-bold">Etat</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let actuator of data.actuators">
+                  <td>
+                    <img *ngIf="actuator.actuator_kind=='Motor'" src="assets/images/img-component/electrovane.png" style="width: 50px;"  alt="get ways">
+                  </td>
+                  <td>
+                    <h5 class="font-14 my-1 font-weight-normal">
+                      {{actuator.id}}
+                    </h5>
+                  </td>
+                  <td>
+                    <h5 class="font-14 my-1 font-weight-normal">
+                      {{actuator.name}}
+                    </h5>
+                  </td>
+                  <td>
+                    <h5 *ngIf="actuator.actuator_kind=='Motor'" class="font-14 my-1 font-weight-normal">Moteur</h5>
+                  </td>
+                  <td>
+                    <h5 class="font-14 my-1 font-weight-normal">
+                      <span class="text-danger" *ngIf="actuator.value !=true">ferme</span>
+                      <span class="text-success" *ngIf="actuator.value==true">Ouvert</span>
+                    </h5>
+                  </td>
+
+                </tr>
+
+
+
+                </tbody>
+              </table>
+            </div> <!-- end table-responsive-->
+
+          </div>
+        </div>
+
+      </div> <!-- end card-body-->
+
+
+
+
+    </div> <!-- end card-->
+  </div>
+</div>
+
+<!------End device list--------->

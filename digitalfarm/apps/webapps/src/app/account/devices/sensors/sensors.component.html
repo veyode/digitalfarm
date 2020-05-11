@@ -1,0 +1,162 @@
+<div class="row " *ngIf="!loadingsensor">
+  <div class="col-12">
+
+    <div class="page-title-box mt-3 mb-5">
+      <p class="h2">
+        <img style="width: 50px;" src="assets/images/img-component/capteur-arrosage.png" alt="">
+
+        Detail du capteur : {{sensor_data.name}}
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-----Placehloder animation-------->
+<div class="row" *ngIf="loadingsensor">
+  <div class="col-12">
+
+    <div class="placeload">
+      <div class="header">
+        <div class="header-content">
+          <div class="content-shape loads"></div>
+          <div class="content-shape loads"></div>
+        </div>
+      </div>
+      <div class="image-placeholder loads"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-------End Placeholder animation------>
+
+<!--------Detail sensor--------->
+
+<div class="row mb-5" *ngIf="!loadingsensor">
+  <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+
+    <div class="card">
+      <div class="card-body pb-1">
+        <div class="media">
+          <div class="media-body">
+            <div class="row">
+              <div class="col-md-7">
+                <h5 class="m-2">DERNIERE DONNEE ENVOYEE PAR {{sensor_data.name}}</h5>
+              </div>
+              <div class="col-md-5">
+                <button type="button" class="btn btn-outline-primary mr-1">Programmer</button>
+                <button type="button" class="btn btn-outline-primary">Ajouter une notification</button>
+              </div>
+            </div>
+
+          </div> <!-- end media body-->
+        </div> <!-- end media -->
+
+        <hr class="m-0">
+
+        <div class="my-3">
+          <div class="row">
+
+
+            <div class="col-lg-8 col-xl-8">
+              <div class="card">
+
+                <div class="card-header border-bottom-0">
+                  <button type="button" class="btn btn-outline-primary btn-rounded mr-1">Editer</button>
+                  <button type="button" class="btn btn-outline-danger btn-rounded">Supprimer</button>
+                </div>
+
+                <div class="card-body">
+                  <div class="row align-items-center">
+
+                    <div class="col-6">
+                      <h4 class=" font-weight-normal mt-0 text-truncate" title="New Leads">{{sensor_data.name}} ({{sensor_data.id}})</h4>
+                      <h3 class="my-2 py-1">
+                        <span *ngIf="sensor_data.value">{{sensor_data.value.value}}</span>
+                        <span *ngIf="sensor_data.unit=='Percent'">%</span>
+                        <span *ngIf="sensor_data.unit=='DegreeCelsius'">°C</span>
+
+                      </h3>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="text-right" >
+                        <img *ngIf="sensor_data.quantity_kind=='SoilHumidity'" src="assets/images/img-component/humidity.png" style="width: 100px;"  alt="get ways">
+                        <img *ngIf="sensor_data.quantity_kind=='AirTemperature'" src="assets/images/img-component/temperature.png" style="width: 100px;" alt="get ways">
+                        <img *ngIf="sensor_data.quantity_kind!=='AirTemperature' && sensor_data.quantity_kind!=='SoilHumidity'" src="assets/images/img-component/sm.png" style="width: 100px;" alt="get ways">
+                      </div>
+                    </div>
+                  </div> <!-- end row-->
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+            </div> <!-- end col -->
+
+
+          </div>
+
+        </div> <!-- end card-body -->
+      </div> <!-- end card -->
+      <!-- end news feeds -->
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-----End detail sensor-------->
+
+
+
+<!-----------Fin Historique ------------>
+<div class="row" *ngIf="!loadingsensor">
+  <div class="col-xl-12 col-md-12">
+    <div class="card">
+      <div class="card-body" style="position: relative;">
+        <h4 class="header-title">Historique du capteur: {{sensor_data.name}}</h4>
+        <canvas id="sensorChart" width="970" height="400"></canvas>
+      </div>
+      <!-- end card body-->
+      <div class="card-footer">
+        <div class="row">
+          <div class="form-group col-4 mb-3">
+            <label>Date debut</label>
+            <input type="text" class="form-control" data-provide="datepicker">
+          </div>
+
+          <div class="form-group col-4 mb-3">
+            <label>Date fin</label>
+            <input type="text" class="form-control" data-provide="datepicker">
+          </div>
+
+          <div class="form-group col-4 mb-3">
+            <label>Nombre de Points de données</label>
+            <input type="number" class="form-control">
+          </div>
+
+          <div class="col-12 mb-2">
+            <button type="button" class="btn btn-primary mr-1"> <span>Mise à jour du graphique</span> </button>
+            <button type="button" class="btn btn-secondary mr-1"> <span>télécharger des données</span> </button>
+            <button type="button" class="btn btn-success"><span>exporter en csv</span> </button>
+
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+    <!-- end card -->
+
+
+  </div>
+
+  <!-- end col-->
+</div>
+
+<!-----------Fin Historique------------>
+
+
+

@@ -1,0 +1,143 @@
+<div class="row " *ngIf="!loading">
+  <div class="col-12">
+
+    <div class="page-title-box mt-3 mb-5">
+      <p class="h2">Gateways: {{gatewaysdetail.name}}</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-----Placehloder animation-------->
+<div class="row" *ngIf="loading">
+  <div class="col-12">
+
+    <div class="placeload">
+      <div class="header">
+        <div class="header-content">
+          <div class="content-shape loads"></div>
+          <div class="content-shape loads"></div>
+        </div>
+      </div>
+      <div class="image-placeholder loads"></div>
+    </div>
+  </div>
+
+</div>
+<!-------End Placeholder animation------>
+
+<!--------Detail Gateways--------->
+
+<div class="row mb-5" *ngIf="!loading">
+  <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+
+    <div class="card">
+      <div class="card-body pb-1">
+        <div class="media">
+          <div class="media-body">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="m-2">NOM: {{gatewaysdetail.name}}
+                  <span *ngIf="gatewaysdetail.connected" class="badge badge-success">connecté</span>
+                  <span *ngIf="!gatewaysdetail.connected" class="badge badge-danger">deconnecté</span>
+                </h5>
+              </div>
+              <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary mr-1">Editer la gateways</button>
+                <button type="button" class="btn btn-outline-danger">Supprimer </button>
+              </div>
+            </div>
+
+          </div> <!-- end media body-->
+        </div> <!-- end media -->
+
+        <hr class="m-0">
+
+        <div class="my-3">
+          <div class="row">
+
+            <div class="col-lg-12   col-xl-12">
+              <div class="card text-center" >
+                <div class="card-body">
+                  <img src="assets/images/users/avatar-1.png" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+
+                  <h4 class="mb-2 mt-2">Utilisateur: {{gatewaysdetail.owner}}</h4>
+                  <p class="text-muted font-14">ID: {{gatewaysdetail.id}}</p>
+
+
+
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+
+            </div>
+
+
+            <!--------Liste of devices content-------->
+            <div class="col-md-12 ">
+              <div class="card" >
+                <div class="card-header">
+                  <p class="h3 text-center mb-3">Listes des devices</p>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+
+
+                    <div class="col-lg-6 col-xl-6" *ngFor="let device of gatewaysdetail.devices">
+                      <div class="card cusor-pointer pt-5 pb-5" (click)="navigatedeviceDetail(device.id)">
+                        <div class="card-body">
+                          <div class="row align-items-center">
+
+                            <div class="col-8">
+                              <h5 class="text-muted font-weight-normal mt-0 text-truncate" title="{{device.name}}">{{device.name}}</h5>
+                            </div>
+
+                            <div class="col-4">
+                              <div class="text-right" >
+                                <img src="assets/images/img-component/devices.png" style="width: 100px;" alt="get ways">
+                              </div>
+                            </div>
+                          </div> <!-- end row-->
+                        </div> <!-- end card-body -->
+                      </div> <!-- end card -->
+                    </div> <!-- end col -->
+
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+          </div>
+
+        </div> <!-- end card-body -->
+      </div> <!-- end card -->
+      <!-- end news feeds -->
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-----End gateways project-------->
+
+
+
+<!-------maps-------->
+<div class="row" *ngIf="!loading">
+  <div class="col-md-12 col-xl-12">
+    <div class="card" >
+      <div class="card-body">
+        <h4 class="header-title mb-3">Localisation de la gateway: {{gatewaysdetail.name}}</h4>
+        <div id="gatewaysmap" class="gmaps" style="position: relative;overflow: hidden;"></div>
+      </div> <!-- end card-body-->
+    </div> <!-- end card-->
+  </div> <!-- end col-->
+</div>
+<!-------end map--------->
+

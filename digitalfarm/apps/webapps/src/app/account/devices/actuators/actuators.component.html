@@ -1,0 +1,113 @@
+<div class="row " *ngIf="!loadingactuator">
+  <div class="col-12">
+
+    <div class="page-title-box mt-3 mb-5">
+      <p class="h2">
+        <img style="width: 50px;" src="assets/images/img-component/electrovane.png" alt="">
+
+        Actionneur: {{actuator_data.name}}
+      </p>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-----Placehloder animation-------->
+<div class="row" *ngIf="loadingactuator">
+  <div class="col-12">
+
+    <div class="placeload">
+      <div class="header">
+        <div class="header-content">
+          <div class="content-shape loads"></div>
+          <div class="content-shape loads"></div>
+        </div>
+      </div>
+      <div class="image-placeholder loads"></div>
+    </div>
+  </div>
+
+</div>
+<!-------End Placeholder animation------>
+
+<!--------Detail sensor--------->
+
+<div class="row mb-5" *ngIf="!loadingactuator">
+  <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+
+    <div class="card">
+      <div class="card-body pb-1">
+        <div class="media">
+          <div class="media-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h5 class="m-2">Detail sur l'actionneur: {{actuator_data.name}}</h5>
+              </div>
+              <!--<div class="col-md-5">
+                <button type="button" class="btn btn-outline-primary mr-1">Programmer</button>
+                <button type="button" class="btn btn-outline-primary">Ajouter une notification</button>
+              </div>-->
+            </div>
+
+          </div> <!-- end media body-->
+        </div> <!-- end media -->
+
+        <hr class="m-0">
+
+        <div class="my-3">
+          <div class="row">
+
+
+            <div class="col-lg-7 col-xl-7">
+              <div class="card cusor-pointer">
+
+                <div class="card-header border-bottom-0">
+                  <button type="button" class="btn btn-outline-primary btn-rounded mr-1">Editer</button>
+                  <button type="button" class="btn btn-outline-danger btn-rounded">Supprimer</button>
+                </div>
+
+                <div class="card-body">
+                  <div class="row align-items-center">
+
+                    <div class="col-6">
+                      <h4 class=" font-weight-normal mt-0 text-truncate" title="New Leads">{{actuator_data.name}}</h4>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="text-right" >
+                        <img src="assets/images/img-component/electrovane.png" alt="devices" style="width: 100px;">
+                      </div>
+                    </div>
+                  </div> <!-- end row-->
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+            </div> <!-- end col -->
+
+            <div class="col-lg-5 col-xl-5">
+              <form>
+                <div class="row row-sm mg-b-10">
+                  <div class="form-group col-md-12">
+                    <label for="enter" class="d-block">Valeur</label>
+                    <input type="number" id="enter" placeholder="Enter your firstname" class="form-control">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary mg-r-10">Envoyer</button></form>
+            </div>
+
+
+
+          </div>
+
+        </div> <!-- end card-body -->
+      </div> <!-- end card -->
+      <!-- end news feeds -->
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-----End detail sensor-------->

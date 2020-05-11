@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "projects": {
+    "webapps": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": ["scss","css"]
+        }
+      },
+      "root": "apps/webapps",
+      "sourceRoot": "apps/webapps/src",
+      "prefix": "waziupfront",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/webapps",
+            "index": "apps/webapps/src/index.html",
+            "main": "apps/webapps/src/main.ts",
+            "polyfills": "apps/webapps/src/polyfills.ts",
+            "tsConfig": "apps/webapps/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/webapps/src/favicon.ico",
+              "apps/webapps/src/assets"
+            ],
+            "styles": [
+              "apps/webapps/src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
+            ],
+            "scripts": [
+
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/webapps/src/environments/environment.ts",
+                  "with": "apps/webapps/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "webapps:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "webapps:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "webapps:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/webapps/tsconfig.app.json",
+              "apps/webapps/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/webapps/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/webapps/jest.config.js",
+            "tsConfig": "apps/webapps/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/webapps/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "webapps-e2e": {
+      "root": "apps/webapps-e2e",
+      "sourceRoot": "apps/webapps-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/webapps-e2e/cypress.json",
+            "tsConfig": "apps/webapps-e2e/tsconfig.e2e.json",
+            "devServerTarget": "webapps:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "webapps:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/webapps-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/webapps-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "da70abd5-07fb-4d89-aeb9-970b6dbe7edf"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "webapps"
+}

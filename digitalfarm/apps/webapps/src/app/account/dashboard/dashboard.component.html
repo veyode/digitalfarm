@@ -1,0 +1,123 @@
+
+<div class="row " *ngIf="!dasboard_loading">
+  <div class="col-12">
+
+    <div class="page-title-box mt-3 mb-5">
+      <div class="page-title-right">
+      <button type="button" class="btn btn-outline-success">
+        <i class="uil-creative-commons-pd"></i> Créer un project
+      </button>
+    </div>
+      <p class="h1">Bienvenue sur Dashboard</p>
+    </div>
+
+  </div>
+</div>
+
+<!-----Placehloder animation-------->
+<div class="row" *ngIf="dasboard_loading">
+  <div class="col-12">
+
+    <div class="placeload">
+      <div class="header">
+        <div class="header-content">
+          <div class="content-shape loads"></div>
+          <div class="content-shape loads"></div>
+        </div>
+      </div>
+      <div class="image-placeholder loads"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-------End Placeholder animation------>
+
+
+<div class="row" *ngIf="!dasboard_loading">
+  <div class="col-xl-12 col-lg-12 order-lg-2 order-xl-1" *ngFor="let project of projects">
+
+    <div class="card">
+      <div class="card-body pb-1">
+        <div class="media">
+          <div class="media-body">
+            <h5 class="m-2">NOM DU PROJET:  {{project.name}}</h5>
+          </div> <!-- end media body-->
+        </div> <!-- end media -->
+
+        <hr class="m-0">
+
+        <div class="my-3">
+          <div class="row">
+
+            <div class="col-lg-6 offset-2  col-xl-6">
+              <div class="card text-center cusor-pointer" (click)="navigateprojectDetail(project.id)">
+                <div class="card-body">
+                  <img src="assets/images/users/avatar-1.png" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image {{project.owner}}">
+
+                  <h4 class="mb-2 mt-2">Utilisateur: {{project.owner}} </h4>
+                  <p class="text-muted font-14">ID: {{project.id}}</p>
+
+
+
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+
+            </div>
+
+
+            <div class="col-lg-6 col-xl-6">
+              <div class="card cusor-pointer" (click)="navigateprojectDetail(project.id)">
+                <div class="card-body">
+                  <div class="row align-items-center">
+
+                    <div class="col-6">
+                      <h5 class="text-muted font-weight-normal mt-0 text-truncate" title="New Leads">Gateways</h5>
+                      <h3 class="my-2 py-1">1</h3>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="text-right" >
+                        <img src="assets/images/img-component/getways.png" alt="gateways" style="width: 100px;">
+                      </div>
+                    </div>
+                  </div> <!-- end row-->
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+            </div> <!-- end col -->
+
+
+            <div class="col-lg-6 col-xl-6">
+              <div class="card cusor-pointer" (click)="navigateprojectDetail(project.id)">
+                <div class="card-body">
+                  <div class="row align-items-center">
+
+                    <div class="col-6">
+                      <h5 class="text-muted font-weight-normal mt-0 text-truncate" title="New Leads">Devices</h5>
+                      <h3 class="my-2 py-1">0</h3>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="text-right" >
+                        <img src="assets/images/img-component/devices.png" alt="devices" style="width: 100px;">
+                      </div>
+                    </div>
+                  </div> <!-- end row-->
+                </div> <!-- end card-body -->
+              </div> <!-- end card -->
+            </div> <!-- end col -->
+
+
+          </div>
+        </div>
+
+      </div> <!-- end card-body -->
+    </div> <!-- end card -->
+    <!-- end news feeds -->
+
+
+  </div>
+</div>
+
+
+
