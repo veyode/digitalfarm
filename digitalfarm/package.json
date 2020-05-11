@@ -1,11 +1,11 @@
 {
-  "name": "waziupfront",
+  "name": "digitalfarm",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "nx": "nx",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
@@ -25,7 +25,8 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    // "heroku-postbuild": "ng build --prod",   
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -49,31 +50,37 @@
     "ngx-bootstrap": "^5.6.1",
     "ngx-export-as": "^1.4.0",
     "ngx-toastr": "^11.3.3",
+    "path": "^0.12.7",
     "placeholder-loading": "^0.2.5",
     "rxjs": "~6.5.4",
     "xlsx": "^0.15.6",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@angular/cli": "9.1.0",
+    "@angular-devkit/build-angular": "0.901.0",
+    "@angular/cli": "^9.1.5",
+    "@angular/compiler-cli": "^9.1.6",
+    "@angular/language-service": "^9.1.0",
+    "@nrwl/cypress": "9.2.2",
+    "@nrwl/jest": "9.2.2",
     "@nrwl/workspace": "9.2.2",
+    "@types/jest": "25.1.4",
     "@types/node": "~8.9.4",
+    "codelyzer": "~5.0.1",
+    "cypress": "^4.1.0",
     "dotenv": "6.2.0",
+    "enhanced-resolve": "^3.3.0",
+    "eslint": "6.8.0",
+    "jest": "25.2.3",
+    "jest-preset-angular": "8.1.2",
+    "prettier": "1.19.1",
+    "ts-jest": "^25.5.1",
     "ts-node": "~7.0.0",
     "tslint": "~6.0.0",
-    "eslint": "6.8.0",
-    "typescript": "~3.8.3",
-    "prettier": "1.19.1",
-    "@angular/compiler-cli": "^9.1.0",
-    "@angular/language-service": "^9.1.0",
-    "@angular-devkit/build-angular": "0.901.0",
-    "codelyzer": "~5.0.1",
-    "jest-preset-angular": "8.1.2",
-    "@nrwl/jest": "9.2.2",
-    "jest": "25.2.3",
-    "@types/jest": "25.1.4",
-    "ts-jest": "25.2.1",
-    "cypress": "^4.1.0",
-    "@nrwl/cypress": "9.2.2"
+    "typescript": "~3.8.3"
+  },
+  "engines": {
+    "node": "12.16.1",
+    "npm": "6.14.4"
   }
 }
