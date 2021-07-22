@@ -52,7 +52,7 @@
     "path": "^0.12.7",
     "placeholder-loading": "^0.2.5",
     "rxjs": "~6.5.4",
-    "xlsx": "^0.15.6",
+    "xlsx": "^0.17.0",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
